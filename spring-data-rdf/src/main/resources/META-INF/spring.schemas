@@ -1,0 +1,2 @@
+http\://www.springframework.org/schema/data/rdf/spring-rdf-1.0.xsd=org/springframework/data/rdf/repository/config/spring-rdf-1.0.xsd
+http\://www.springframework.org/schema/data/rdf/spring-rdf.xsd=org/springframework/data/rdf/repository/config/spring-rdf-1.0.xsd

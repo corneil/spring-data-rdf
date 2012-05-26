@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context" xmlns="http://www.springframework.org/schema/beans"
+	xmlns:rdf="http://www.springframework.org/schema/data/rdf"
+	xsi:schemaLocation="http://www.springframework.org/schema/data/rdf http://www.springframework.org/schema/data/rdf/spring-rdf-1.0.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd">
+	<bean id="modelFactory" class="org.ontoware.rdf2go.RDF2Go" factory-method="getModelFactory" />
+	<rdf:repositories base-package="org.springframework.data.rdf.simple" model-factory-ref="modelFactory" />
+</beans>
