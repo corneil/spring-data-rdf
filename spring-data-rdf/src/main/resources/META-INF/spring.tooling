@@ -1,0 +1,4 @@
+# Tooling related information for the RDF namespace
+http\://www.springframework.org/schema/data/rdf@name=RDF Namespace
+http\://www.springframework.org/schema/data/rdf@prefix=rdf
+http\://www.springframework.org/schema/data/rdf@icon=org/springframework/data/rdf/repository/config/spring_rdf.gif

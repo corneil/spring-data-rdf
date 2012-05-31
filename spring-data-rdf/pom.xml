@@ -1,7 +1,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.springframework.data</groupId>
-	<artifactId>spring-data-rdf2go</artifactId>
+	<artifactId>spring-data-rdf</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	<name>Spring Data RDF Parent</name>
@@ -13,10 +13,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java.version>1.6</java.version>
 		<spring.version>3.1.1.RELEASE</spring.version>
-		<rdfbeans.version>2.1-SNAPSHOT</rdfbeans.version>
-		<rdf2go.test.version>4.7.4</rdf2go.test.version>
-		<rdf2go.api.version>4.8.1</rdf2go.api.version>
-		<rdf2go.impl.jena.test>4.8.1</rdf2go.impl.jena.test>
+		<rdfbean.version>1.5.5</rdfbean.version>
 		<data.commons.version>1.2.1.RELEASE</data.commons.version>
 		<cdi.version>1.0</cdi.version>
 	</properties>
@@ -47,22 +44,23 @@
 			</snapshots>
 		</repository>
 		<repository>
-			<releases>
-				<enabled>true</enabled>
-			</releases>
+			<id>mysema-releases</id>
+			<url>http://source.mysema.com/maven2/releases</url>
 			<snapshots>
 				<enabled>false</enabled>
 			</snapshots>
-			<id>rdfbeans-repo</id>
-			<name>RDFBeans</name>
-			<url>http://rdfbeans.sf.net/repo</url>
-		</repository>
-		<repository>
-			<id>semweb4j-repo</id>
-			<name>Semweb4j.org maven repo</name>
-			<url>http://semweb4j.org/repo/</url>
 			<releases>
 				<enabled>true</enabled>
+			</releases>
+		</repository>
+		<repository>
+			<id>mysema-snapshots</id>
+			<url>http://source.mysema.com/maven2/snapshots</url>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+			<releases>
+				<enabled>false</enabled>
 			</releases>
 		</repository>
 	</repositories>
@@ -94,29 +92,24 @@
 				<version>${spring.version}</version>
 			</dependency>
 			<dependency>
-				<groupId>org.semweb4j</groupId>
-				<artifactId>rdf2go.api</artifactId>
-				<version>${rdf2go.api.version}</version>
+				<groupId>com.mysema.rdf</groupId>
+				<artifactId>rdfbean-spring</artifactId>
+				<version>${rdfbean.version}</version>
 			</dependency>
 			<dependency>
-				<groupId>com.viceversatech</groupId>
-				<artifactId>RDFBeans</artifactId>
-				<version>${rdfbeans.version}</version>
+				<groupId>com.mysema.rdf</groupId>
+				<artifactId>rdfbean-core</artifactId>
+				<version>${rdfbean.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.mysema.rdf</groupId>
+				<artifactId>rdfbean-sesame2</artifactId>
+				<version>${rdfbean.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>org.slf4j</groupId>
 				<artifactId>slf4j-api</artifactId>
 				<version>1.6.4</version>
-			</dependency>
-			<dependency>
-				<groupId>org.semweb4j</groupId>
-				<artifactId>rdf2go.impl.jena</artifactId>
-				<version>${rdf2go.impl.jena.test}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.semweb4j</groupId>
-				<artifactId>rdf2go.impl.base.test</artifactId>
-				<version>${rdf2go.test.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>org.slf4j</groupId>
@@ -163,32 +156,18 @@
 			<artifactId>spring-test</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>org.semweb4j</groupId>
-			<artifactId>rdf2go.api</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>com.viceversatech</groupId>
-			<artifactId>RDFBeans</artifactId>
-		</dependency>
-		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.mysema.rdf</groupId>
+			<artifactId>rdfbean-spring</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>javax.enterprise</groupId>
 			<artifactId>cdi-api</artifactId>
 			<scope>provided</scope>
 			<optional>true</optional>
-		</dependency>
-		<dependency>
-			<groupId>org.semweb4j</groupId>
-			<artifactId>rdf2go.impl.jena</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.semweb4j</groupId>
-			<artifactId>rdf2go.impl.base.test</artifactId>
-			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
@@ -203,6 +182,11 @@
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.mysema.rdf</groupId>
+			<artifactId>rdfbean-sesame2</artifactId>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>

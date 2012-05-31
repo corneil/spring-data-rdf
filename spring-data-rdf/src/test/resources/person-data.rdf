@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns:rdfbeans="http://viceversatech.com/rdfbeans/2.0/">
+	<rdf:Description rdf:about="http://tsctech.com/hri/images/de1421fd-984a-4cf7-9c33-16657c9edbc7">
+		<foaf:primaryTopic>thumb</foaf:primaryTopic>
+		<foaf:topic>person</foaf:topic>
+		<foaf:topic>photo</foaf:topic>
+		<foaf:topic>thumb</foaf:topic>
+		<rdf:type rdf:resource="http://xmlns.com/foaf/0.1/Image" />
+	</rdf:Description>
+	<rdf:Description rdf:about="http://tsctech.com/hri/images/569512a3-3b2e-4cb6-a475-8fa59603cb08">
+		<foaf:primaryTopic>photo</foaf:primaryTopic>
+		<foaf:thumbnail rdf:resource="http://tsctech.com/hri/images/de1421fd-984a-4cf7-9c33-16657c9edbc7" />
+		<foaf:topic>person</foaf:topic>
+		<foaf:topic>photo</foaf:topic>
+		<rdf:type rdf:resource="http://xmlns.com/foaf/0.1/Image" />
+	</rdf:Description>
+	<rdf:Description rdf:about="http://tsctech.com/hri/persons/john.doe">
+		<foaf:name>John Doe</foaf:name>
+		<foaf:image rdf:resource="http://tsctech.com/hri/images/569512a3-3b2e-4cb6-a475-8fa59603cb08" />
+		<foaf:email>john.doe@nowhere.net</foaf:email>
+		<rdf:type rdf:resource="http://xmlns.com/foaf/0.1/Person" />
+	</rdf:Description>
+</rdf:RDF>
