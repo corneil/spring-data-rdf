@@ -1,4 +1,4 @@
-package org.springframework.data.rdf.simple;
+package org.springframework.data.rdf.query;
 
 import java.io.Serializable;
 import java.util.Arrays;

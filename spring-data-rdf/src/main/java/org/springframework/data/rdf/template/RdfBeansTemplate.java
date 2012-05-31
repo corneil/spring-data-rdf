@@ -23,6 +23,9 @@ public class RdfBeansTemplate {
         this.sessionFactory = sessionFactory;
     }
 
+    public SessionFactory getSessionFactory() {
+        return sessionFactory;
+    }
     public void addAll(Iterable<?> entities) throws RdfException {
         Session session = sessionFactory.openSession();
         assert session != null;

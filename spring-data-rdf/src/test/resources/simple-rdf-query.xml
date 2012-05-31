@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context" xmlns="http://www.springframework.org/schema/beans"
+	xmlns:rdf="http://www.springframework.org/schema/data/rdf"
+	xsi:schemaLocation="http://www.springframework.org/schema/data/rdf http://www.springframework.org/schema/data/rdf/spring-rdf-1.0.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd">
+	<bean id="repository" class="com.mysema.rdfbean.sesame.MemoryRepository">
+		<property name="sources">
+			<list>
+				<!-- <bean class="com.mysema.rdfbean.model.io.RDFSource"> <constructor-arg value="classpath:demo.owl" /> <constructor-arg value="RDFXML" /> <constructor-arg 
+					value="http://www.mysema.com/rdfbean/demo" /> </bean> <bean class="com.mysema.rdfbean.model.io.RDFSource"> <constructor-arg value="classpath:demodata.owl" /> <constructor-arg 
+					value="RDFXML" /> <constructor-arg value="http://www.mysema.com/rdfbean/demodata" /> </bean> -->
+			</list>
+		</property>
+		<property name="sesameInference" value="true" />
+	</bean>
+	<bean id="configuration" class="com.mysema.rdfbean.object.DefaultConfiguration">
+		<constructor-arg value="true" />
+		<constructor-arg>
+			<list>
+				<!-- <value>com.mysema.rdf.demo.domain.Person</value> -->
+			</list>
+		</constructor-arg>
+		<!-- property name="defaultContext" value="http://demo.springframework.org/spring-data-rdf-demo" /-->
+	</bean>
+	<bean id="sessionFactory" class="com.mysema.rdfbean.spring.ContextAwareSessionFactory" init-method="initialize" destroy-method="close">
+		<property name="configuration" ref="configuration" />
+		<property name="repository" ref="repository" />
+	</bean>
+	<bean id="transactionManager" class="com.mysema.rdfbean.spring.RDFBeanTransactionManager">
+		<constructor-arg ref="sessionFactory" />
+	</bean>
+	<rdf:repositories base-package="org.springframework.data.rdf.query" session-factory-ref="sessionFactory" />
+</beans>
