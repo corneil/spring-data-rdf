@@ -5,7 +5,7 @@ import static org.springframework.data.querydsl.QueryDslUtils.QUERY_DSL_PRESENT;
 import java.io.Serializable;
 
 import org.springframework.data.querydsl.QueryDslPredicateExecutor;
-import org.springframework.data.rdf.repository.query.RdfQueryLookupStrategy;
+
 import org.springframework.data.rdf.repository.utils.RdfMetaDataUtil;
 import org.springframework.data.rdf.template.RdfBeansTemplate;
 import org.springframework.data.repository.core.EntityInformation;
@@ -64,8 +64,9 @@ public class RdFRepositoryFactory extends RepositoryFactorySupport {
      */
     @Override
     protected QueryLookupStrategy getQueryLookupStrategy(Key key) {
-        RdfBeansTemplate template = new RdfBeansTemplate(factory);
-        return RdfQueryLookupStrategy.create(template, key);
+        // RdfBeansTemplate template = new RdfBeansTemplate(factory);
+        // return RdfQueryLookupStrategy.create(template, key);
+        return null;
     }
     private boolean isQueryDslExecutor(Class<?> repositoryInterface) {
         return QUERY_DSL_PRESENT && QueryDslPredicateExecutor.class.isAssignableFrom(repositoryInterface);

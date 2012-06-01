@@ -2,11 +2,10 @@ package org.springframework.data.rdf.simple;
 
 import java.io.Serializable;
 import java.util.Arrays;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import com.mysema.rdfbean.annotations.ClassMapping;
-import com.mysema.rdfbean.annotations.Container;
-import com.mysema.rdfbean.annotations.ContainerType;
 import com.mysema.rdfbean.annotations.Id;
 import com.mysema.rdfbean.annotations.Predicate;
 import com.mysema.rdfbean.model.FOAF;
@@ -22,9 +21,24 @@ public class Document implements Serializable {
     @Predicate
     private String primaryTopic;
     @Predicate
-    @Container(ContainerType.LIST)
-    private List<String> topic;
+    // @Container(ContainerType.BAG)
+    private Set<String> topic;
 
+    public Set<String> getTopic() {
+        return topic;
+    }
+
+    public void setTopic(Set<String> topic) {
+        this.topic = topic;
+    }
+
+    /*
+     * private String [] topic;
+     * 
+     * public String[] getTopic() { return topic; }
+     * 
+     * public void setTopic(String[] topic) { this.topic = topic; }
+     */
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
@@ -88,19 +102,13 @@ public class Document implements Serializable {
         return builder.toString();
     }
 
-    public List<String> getTopic() {
-        return topic;
-    }
-
     public String[] getTopicArray() {
         return topic != null ? topic.toArray(new String[topic.size()]) : null;
-    }
-
-    public void setTopic(List<String> topic) {
-        this.topic = topic;
+        // return topic;
     }
 
     public void setTopicArray(String[] topic) {
-        this.topic = topic != null ? Arrays.asList(topic) : null;
+        this.topic = topic != null ? new HashSet<String>(Arrays.asList(topic)) : null;
     }
+
 }

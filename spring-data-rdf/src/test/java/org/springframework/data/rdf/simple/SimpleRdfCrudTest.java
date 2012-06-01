@@ -95,9 +95,9 @@ public class SimpleRdfCrudTest {
         Assert.assertEquals("John Doe", person.getName());
         Assert.assertNotNull("Image not found", person.getImage());
         Assert.assertNotNull("Thumbnail not found", person.getImage().getThumbnail());
-        Assert.assertEquals(2, person.getImage().getTopic().size());
+        Assert.assertEquals(2, person.getImage().getTopicArray().length);
         Assert.assertNotNull("Thumbnail not found", person.getImage().getThumbnail());
         Assert.assertNotNull("Thumbnail Topics not found", person.getImage().getThumbnail().getTopic());
-        Assert.assertEquals(3, person.getImage().getThumbnail().getTopic().size());
+        Assert.assertEquals(3, person.getImage().getThumbnail().getTopicArray().length);
     }
 }
