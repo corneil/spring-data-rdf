@@ -6,6 +6,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 import com.mysema.rdfbean.annotations.ClassMapping;
+import com.mysema.rdfbean.annotations.Container;
+import com.mysema.rdfbean.annotations.ContainerType;
 import com.mysema.rdfbean.annotations.Id;
 import com.mysema.rdfbean.annotations.Predicate;
 import com.mysema.rdfbean.model.FOAF;
@@ -20,25 +22,19 @@ public class Document implements Serializable {
     protected String id;
     @Predicate
     private String primaryTopic;
-    @Predicate
-    // @Container(ContainerType.BAG)
-    private Set<String> topic;
 
-    public Set<String> getTopic() {
+    @Predicate
+    @Container(ContainerType.NONE)
+    private String[] topic;
+
+    public String[] getTopic() {
         return topic;
     }
 
-    public void setTopic(Set<String> topic) {
+    public void setTopic(String[] topic) {
         this.topic = topic;
     }
 
-    /*
-     * private String [] topic;
-     * 
-     * public String[] getTopic() { return topic; }
-     * 
-     * public void setTopic(String[] topic) { this.topic = topic; }
-     */
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
@@ -100,15 +96,6 @@ public class Document implements Serializable {
         }
         builder.append("]");
         return builder.toString();
-    }
-
-    public String[] getTopicArray() {
-        return topic != null ? topic.toArray(new String[topic.size()]) : null;
-        // return topic;
-    }
-
-    public void setTopicArray(String[] topic) {
-        this.topic = topic != null ? new HashSet<String>(Arrays.asList(topic)) : null;
     }
 
 }

@@ -54,11 +54,11 @@ public class SimpleRdfCrudTest {
         Image image = new Image();
         image.setId(UUID.randomUUID().toString());
         image.setPrimaryTopic("photo");
-        image.setTopicArray(new String[] { "photo", "person" });
+        image.setTopic(new String[] { "photo", "person" });
         Image thumb = new Image();
         thumb.setId(UUID.randomUUID().toString());
         thumb.setPrimaryTopic("thumb");
-        thumb.setTopicArray(new String[] { "thumb", "photo", "person" });
+        thumb.setTopic(new String[] { "thumb", "photo", "person" });
         image.setThumbnail(thumb);
         person.setImage(image);
         imageRepository.save(thumb);
@@ -94,10 +94,10 @@ public class SimpleRdfCrudTest {
         System.out.println("person=" + person);
         Assert.assertEquals("John Doe", person.getName());
         Assert.assertNotNull("Image not found", person.getImage());
-        Assert.assertNotNull("Thumbnail not found", person.getImage().getThumbnail());
-        Assert.assertEquals(2, person.getImage().getTopicArray().length);
+        Assert.assertNotNull("Topic not found", person.getImage().getTopic());
+        Assert.assertEquals(2, person.getImage().getTopic().length);
         Assert.assertNotNull("Thumbnail not found", person.getImage().getThumbnail());
         Assert.assertNotNull("Thumbnail Topics not found", person.getImage().getThumbnail().getTopic());
-        Assert.assertEquals(3, person.getImage().getThumbnail().getTopicArray().length);
+        Assert.assertEquals(3, person.getImage().getThumbnail().getTopic().length);
     }
 }
