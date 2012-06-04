@@ -10,6 +10,7 @@ import java.util.HashSet;
 import java.util.List;
 
 import org.springframework.data.rdf.repository.RdfRepository;
+import org.springframework.data.rdf.repository.utils.RdfMetaDataUtil;
 import org.springframework.data.rdf.template.RdfBeansTemplate;
 import org.springframework.data.rdf.utils.RdfStringUtils;
 
@@ -51,7 +52,7 @@ public class SimpleRdfRepository<T, ID extends Serializable> implements RdfRepos
     @SuppressWarnings("unchecked")
     @Override
     public T findOne(ID id) {
-        return (T) template.find(new UID(RdfStringUtils.stringFromObject(id)), metadata.getJavaType());
+        return (T) template.find(RdfMetaDataUtil.makeId(metadata.getJavaType(), id), metadata.getJavaType());
     }
 
     @Override
@@ -73,6 +74,7 @@ public class SimpleRdfRepository<T, ID extends Serializable> implements RdfRepos
     @Override
     public void delete(ID id) {
         // TODO determine best way to delete using id
+        // RdfMetaDataUtil.makeId(metadata.getJavaType(), id)
         throw new RuntimeException("Implementation required:SimpleRdfRepository.delete(ID)");
     }
 

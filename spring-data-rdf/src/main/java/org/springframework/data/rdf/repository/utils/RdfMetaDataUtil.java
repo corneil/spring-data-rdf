@@ -10,6 +10,7 @@ import org.springframework.util.StringUtils;
 
 import com.mysema.rdfbean.annotations.Id;
 import com.mysema.rdfbean.model.ID;
+import com.mysema.rdfbean.model.IDType;
 import com.mysema.rdfbean.model.UID;
 
 public class RdfMetaDataUtil {
@@ -31,17 +32,79 @@ public class RdfMetaDataUtil {
         return result.toString();
     }
 
-    public static ID makeId(Object o) {
-        String prefix = makePrefix(o.getClass());
-        return new UID(prefix, RdfStringUtils.stringFromObject(extractKey(o)));
+    public static String extractPrefix(Class<?> cls) {
+        for (Field f : cls.getDeclaredFields()) {
+            Id subject = f.getAnnotation(Id.class);
+            if (subject != null) {
+                return subject.ns();
+            }
+        }
+        for (Field f : cls.getFields()) {
+            Id subject = f.getAnnotation(Id.class);
+            if (subject != null) {
+                return subject.ns();
+            }
+        }
+        for (Method m : cls.getMethods()) {
+            Id subject = m.getAnnotation(Id.class);
+            if (subject != null) {
+                return subject.ns();
+            }
+        }
+        return null;
+
     }
 
-    public static ID makeId(Class<?> cls, Object key) {
-        String prefix = makePrefix(cls);
-        return new UID(prefix, RdfStringUtils.stringFromObject(key));
+    public static IDType extractIdType(Class<?> cls) {
+        for (Field f : cls.getDeclaredFields()) {
+            Id subject = f.getAnnotation(Id.class);
+            if (subject != null) {
+                return subject.value();
+            }
+        }
+        for (Field f : cls.getFields()) {
+            Id subject = f.getAnnotation(Id.class);
+            if (subject != null) {
+                return subject.value();
+            }
+        }
+        for (Method m : cls.getMethods()) {
+            Id subject = m.getAnnotation(Id.class);
+            if (subject != null) {
+                return subject.value();
+            }
+        }
+        return IDType.LOCAL;
+
+    }
+
+    public static ID makeId(Object o) {
+        Object id = extractKey(o);
+        return makeId(o.getClass(), id);
+    }
+
+    public static ID makeId(Class<?> cls, Object id) {
+        IDType type = extractIdType(cls);
+        if (type.equals(IDType.URI)) {
+            String prefix = extractPrefix(cls);
+            String key = RdfStringUtils.stringFromObject(id);
+            return prefix == null ? new UID(key) : new UID(prefix, key);
+        }
+        return (ID) id;
     }
 
     public static Object extractKey(Object o) {
+        for (Field f : o.getClass().getDeclaredFields()) {
+            Id subject = f.getAnnotation(Id.class);
+            if (subject != null) {
+                f.setAccessible(true);
+                try {
+                    return f.get(o);
+                } catch (Throwable e) {
+                    throw new RuntimeException("Exception extracting key field:" + e, e);
+                }
+            }
+        }
         for (Field f : o.getClass().getFields()) {
             Id subject = f.getAnnotation(Id.class);
             if (subject != null) {
@@ -72,6 +135,17 @@ public class RdfMetaDataUtil {
     }
 
     public static Class<?> extractKeyType(Class<?> domainClass) {
+        for (Field f : domainClass.getDeclaredFields()) {
+            Id subject = f.getAnnotation(Id.class);
+            if (subject != null) {
+                f.setAccessible(true);
+                try {
+                    return f.getType();
+                } catch (Throwable e) {
+                    throw new RuntimeException("Exception extracting key field type:" + e, e);
+                }
+            }
+        }
         for (Field f : domainClass.getFields()) {
             Id subject = f.getAnnotation(Id.class);
             if (subject != null) {

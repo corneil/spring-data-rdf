@@ -15,9 +15,9 @@
 		<rdf:type rdf:resource="http://xmlns.com/foaf/0.1/Image" />
 	</rdf:Description>
 	<rdf:Description rdf:about="http://test.springframework.org/rdf/persons#john.doe">
-		<foaf:name>John Doe</foaf:name>
+		<foaf:name>John Doe</foaf:name>		
+		<foaf:email rdf:datatype="http://www.w3.org/2001/XMLSchema#string">john.doe@nowhere.net</foaf:email>
 		<foaf:image rdf:resource="uuid:569512a3-3b2e-4cb6-a475-8fa59603cb08" />
-		<foaf:email>john.doe@nowhere.net</foaf:email>
 		<rdf:type rdf:resource="http://xmlns.com/foaf/0.1/Person" />
 	</rdf:Description>
 </rdf:RDF>

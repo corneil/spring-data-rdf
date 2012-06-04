@@ -12,7 +12,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
-import org.springframework.data.rdf.repository.utils.RdfMetaDataUtil;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -37,15 +36,13 @@ public class SimpleRdfCrudTest {
 
     @Before
     public void setUp() throws IOException {
-        ClassPathResource foaf = new ClassPathResource("foaf.rdf");
-        // ClassPathResource data = new ClassPathResource("person-data.rdf");
-
-        repository.load(Format.RDFXML, foaf.getInputStream(), null, true);
-        // repository.load(Format.RDFXML, data.getInputStream(), null, true);
+        repository.initialize();
     }
 
     @Test
-    public void testCreatePerson() {
+    public void testCreatePerson() throws IOException {
+        ClassPathResource foaf = new ClassPathResource("foaf.rdf");
+        repository.load(Format.RDFXML, foaf.getInputStream(), null, true);
 
         Person person = new Person();
         person.setName("John Doe");
@@ -65,10 +62,17 @@ public class SimpleRdfCrudTest {
         imageRepository.save(image);
         personRepository.save(person);
         repository.export(Format.RDFXML, null, System.out);
+
+        personRepository.delete(person);
+        imageRepository.delete(image);
+        imageRepository.delete(thumb);
+
     }
 
     @Test
     public void testLoadImages() throws Exception {
+        ClassPathResource foaf = new ClassPathResource("foaf.rdf");
+        repository.load(Format.RDFXML, foaf.getInputStream(), null, true);
 
         ClassPathResource data = new ClassPathResource("person-data.rdf");
         repository.load(Format.RDFXML, data.getInputStream(), null, true);
@@ -86,8 +90,12 @@ public class SimpleRdfCrudTest {
     @Test
     public void testLoadPerson() throws Exception {
 
+        ClassPathResource foaf = new ClassPathResource("foaf.rdf");
+        repository.load(Format.RDFXML, foaf.getInputStream(), null, true);
         ClassPathResource data = new ClassPathResource("person-data.rdf");
         repository.load(Format.RDFXML, data.getInputStream(), null, true);
+        
+        repository.export(Format.RDFXML, null, System.out);
 
         Person person = personRepository.findOne("john.doe");
         Assert.assertNotNull("Cannot find person", person);
