@@ -43,11 +43,6 @@ public @interface Sparql {
 	String countQuery() default "";
 
 	/**
-	 * Configures whether the given query is a native one. Defaults to {@literal false}.
-	 */
-	boolean nativeQuery() default false;
-
-	/**
 	 * The named query to be used. If not defined, a {@link javax.persistence.NamedQuery} with name of
 	 * {@code $ domainClass}.${queryMethodName}} will be used.
 	 */

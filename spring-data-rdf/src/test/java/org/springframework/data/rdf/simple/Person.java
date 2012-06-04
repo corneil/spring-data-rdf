@@ -3,13 +3,10 @@ package org.springframework.data.rdf.simple;
 import java.io.Serializable;
 import java.util.Date;
 
-import org.springframework.data.rdf.repository.utils.RdfMetaDataUtil;
-
 import com.mysema.rdfbean.annotations.ClassMapping;
 import com.mysema.rdfbean.annotations.Id;
 import com.mysema.rdfbean.annotations.Predicate;
 import com.mysema.rdfbean.model.FOAF;
-import com.mysema.rdfbean.model.ID;
 import com.mysema.rdfbean.model.IDType;
 
 @ClassMapping(ns = FOAF.NS)
@@ -27,17 +24,9 @@ public class Person implements Serializable {
     @Predicate
     private String name;
 
-    @Id(IDType.URI)
-    public ID getId() {
-        return RdfMetaDataUtil.makeId(getClass(), personId);
-    }
-
-    public void setId(ID id) {
-        personId = id.asURI().getLocalName();
-    }
-
+    @Id(value = IDType.URI, ns = "http://test.springframework.org/rdf/persons#")
     private String personId;
-    
+
     @Predicate
     private Image image;
 

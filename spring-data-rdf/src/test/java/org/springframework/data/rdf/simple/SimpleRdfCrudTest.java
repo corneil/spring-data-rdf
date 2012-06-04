@@ -89,7 +89,7 @@ public class SimpleRdfCrudTest {
         ClassPathResource data = new ClassPathResource("person-data.rdf");
         repository.load(Format.RDFXML, data.getInputStream(), null, true);
 
-        Person person = personRepository.findOne(RdfMetaDataUtil.makeId(Person.class, "john.doe").getId());
+        Person person = personRepository.findOne("john.doe");
         Assert.assertNotNull("Cannot find person", person);
         System.out.println("person=" + person);
         Assert.assertEquals("John Doe", person.getName());
