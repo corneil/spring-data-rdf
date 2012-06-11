@@ -14,8 +14,6 @@ import org.springframework.data.rdf.repository.utils.RdfMetaDataUtil;
 import org.springframework.data.rdf.template.RdfBeansTemplate;
 import org.springframework.data.rdf.utils.RdfStringUtils;
 
-import com.mysema.rdfbean.model.UID;
-
 /**
  * @author Corneil du Plessis
  * 
@@ -73,8 +71,8 @@ public class SimpleRdfRepository<T, ID extends Serializable> implements RdfRepos
 
     @Override
     public void delete(ID id) {
+        template.delete(template.find(RdfMetaDataUtil.makeId(metadata.getJavaType(), id), metadata.getJavaType()));
         // TODO determine best way to delete using id
-        // RdfMetaDataUtil.makeId(metadata.getJavaType(), id)
         throw new RuntimeException("Implementation required:SimpleRdfRepository.delete(ID)");
     }
 
