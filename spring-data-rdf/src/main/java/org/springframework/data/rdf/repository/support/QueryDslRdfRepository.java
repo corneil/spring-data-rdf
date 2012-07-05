@@ -49,7 +49,7 @@ public class QueryDslRdfRepository<T, ID extends Serializable> extends SimpleRdf
 
     /**
      * Creates a new {@link QueryDslRdfRepository} from the given domain class
-     * and {@link EntityManager}. This will use the
+     * and {@link RdfBeansTemplate}. This will use the
      * {@link SimpleEntityPathResolver} to translate the given domain class into
      * an {@link EntityPath}.
      * 
@@ -65,7 +65,7 @@ public class QueryDslRdfRepository<T, ID extends Serializable> extends SimpleRdf
 
     /**
      * Creates a new {@link QueryDslRdfRepository} from the given domain class
-     * and {@link EntityManager} and uses the given {@link EntityPathResolver}
+     * and {@link RdfBeansTemplate} and uses the given {@link EntityPathResolver}
      * to translate the domain class into an {@link EntityPath}.
      * 
      * @param entityInformation
@@ -142,10 +142,10 @@ public class QueryDslRdfRepository<T, ID extends Serializable> extends SimpleRdf
     }
 
     /**
-     * Creates a new {@link JPQLQuery} for the given {@link Predicate}.
+     * Creates a new {@link BeanQuery} for the given {@link Predicate}.
      * 
      * @param predicate
-     * @return the Querydsl {@link JPQLQuery}.
+     * @return the Querydsl {@link BeanQuery}.
      */
     protected BeanQuery createQuery(Predicate... predicate) {
         Session session = template.getSessionFactory().openSession();
@@ -153,12 +153,12 @@ public class QueryDslRdfRepository<T, ID extends Serializable> extends SimpleRdf
     }
 
     /**
-     * Applies the given {@link Pageable} to the given {@link JPQLQuery}.
+     * Applies the given {@link Pageable} to the given {@link BeanQuery}.
      * 
      * @param query
      *            must not be {@literal null}.
      * @param pageable
-     * @return the Querydsl {@link JPQLQuery}.
+     * @return the Querydsl {@link BeanQuery}.
      */
     protected BeanQuery applyPagination(BeanQuery query, Pageable pageable) {
 
@@ -173,12 +173,12 @@ public class QueryDslRdfRepository<T, ID extends Serializable> extends SimpleRdf
     }
 
     /**
-     * Applies sorting to the given {@link JPQLQuery}.
+     * Applies sorting to the given {@link BeanQuery}.
      * 
      * @param query
      *            must not be {@literal null}.
      * @param sort
-     * @return the Querydsl {@link JPQLQuery}
+     * @return the Querydsl {@link BeanQuery}
      */
     protected BeanQuery applySorting(BeanQuery query, Sort sort) {
 
