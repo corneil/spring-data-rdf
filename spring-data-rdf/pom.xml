@@ -215,12 +215,14 @@
 				<version>1.0.3</version>
 				<executions>
 					<execution>
-						<phase>generate-sources</phase>
+						<phase>generate-test-sources</phase>
 						<goals>
-							<goal>process</goal>
+							<goal>test-process</goal>
+							<goal>add-test-sources</goal>
 						</goals>
 						<configuration>
-							<outputDirectory>target/generated-sources</outputDirectory>
+							<showWarnings>true</showWarnings>
+							<outputDirectory>target/generated-test-sources/java</outputDirectory>
 							<processor>com.mysema.query.apt.QuerydslAnnotationProcessor</processor>
 						</configuration>
 					</execution>

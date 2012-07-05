@@ -50,9 +50,9 @@ public class QueryDSLRdfQueryTest {
         repository.load(Format.RDFXML, data.getInputStream(), null, true);
 
         boolean foundImage = false;
-        PathBuilder<Image> imageClass = new PathBuilder<Image>(Image.class, "image");
-        Iterable<Image> images = imageRepository.findAll(imageClass.get("topic").eq("photo"));
-        // Iterable<Image> images = imageRepository.findAll(QImage.image.topic.eq("photo"));
+        // PathBuilder<Image> imageClass = new PathBuilder<Image>(Image.class, "image");
+        // Iterable<Image> images = imageRepository.findAll(imageClass.get("topic").eq("photo"));
+        Iterable<Image> images = imageRepository.findAll(QImage.image.topic.contains("photo"));
         for (Image image : images) {
             foundImage = true;
             System.out.println("Image=" + image);
@@ -67,9 +67,9 @@ public class QueryDSLRdfQueryTest {
 
         ClassPathResource data = new ClassPathResource("person-data.rdf");
         repository.load(Format.RDFXML, data.getInputStream(), null, true);
-        PathBuilder<Person> personClass = new PathBuilder<Person>(Person.class, "person");
-        Iterable<Person> persons = personRepository.findAll(personClass.get("name").eq("John Doe"));
-        // Iterable<Person> persons = personRepository.findAll(QPerson.person.name.eq("John Doe"));
+        // PathBuilder<Person> personClass = new PathBuilder<Person>(Person.class, "person");
+        // Iterable<Person> persons = personRepository.findAll(personClass.get("name").eq("John Doe"));
+        Iterable<Person> persons = personRepository.findAll(QPerson.person.name.eq("John Doe"));
         Assert.assertNotNull(persons);
         Assert.assertTrue("Cannot find person", persons.iterator().hasNext());
         Person person = persons.iterator().next();
